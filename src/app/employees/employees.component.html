@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-4">
+        <form [formGroup]="employeeForm" (ngSubmit)="addInputValue()">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input class="form-control" formControlName="fullname">
+                <div *ngIf="employeeForm.get('fullname').errors && employeeForm.get('fullname').touched">
+                    <span *ngIf="employeeForm.get('fullname').errors['minlength']">Minimum 6 Char required</span>
+                    <span *ngIf="employeeForm.get('fullname').errors['required']">Field is required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email ID</label>
+                <input class="form-control" formControlName="email">
+                <div *ngIf="employeeForm.get('email').errors && employeeForm.get('email').touched">
+                    <span *ngIf="employeeForm.get('email').errors['email']">Incorrect Format</span>
+                    <span *ngIf="employeeForm.get('email').errors['required']">Field is required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input class="form-control" formControlName="contact">
+                <div *ngIf="employeeForm.get('contact').errors && employeeForm.get('contact').touched">
+                    <span *ngIf="employeeForm.get('contact').errors.pattern">Only number</span>
+                    <span *ngIf="employeeForm.get('contact').errors['required']">Field is required</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Salary</label>
+                <input class="form-control" formControlName="salary">
+                <div *ngIf="employeeForm.get('salary').errors && employeeForm.get('salary').touched">
+                    <span *ngIf="employeeForm.get('salary').errors['pattern']">Numer only</span>
+                    <span *ngIf="employeeForm.get('salary').errors['required']">Field is required</span>
+                </div>
+            </div>
+            <div>
+                <button [disabled]="!employeeForm.valid" class="btn btn-primary" *ngIf="button_enable">Save</button><button  class="btn btn-primary" (click)="updateEntry()" *ngIf="!button_enable">update</button>
+              
+            </div>
+            
+        </form>
+    </div>
+    <div class="col-8">
+        <div class="form-group">
+            <input type="text" class="form-control" [(ngModel)]="serchTerm">
+        </div>
+        <div class="table">
+            <th>FullName</th>
+            <th>Email</th>
+            <th>Contact number</th>
+            <th>Salary</th>
+            <th>Action</th>
+            <tr *ngFor=" let emp of employees | filterPipe:serchTerm">
+                <td>{{emp.fullname }}</td>
+                <td>{{emp.email}}</td>
+                <td>{{emp.contact}}
+                </td>
+                <td>{{emp.salary}}</td>
+                <td><button class="btn btn-warning" (click)="deleteEntry(emp.id)">Delete</button></td>
+                <td><button class="btn btn-warning"  (click)="editEntry(emp)">edit</button> </td>
+            </tr>
+        </div>
+    </div>
+</div>

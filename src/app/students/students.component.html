@@ -1,0 +1,40 @@
+<form #loginForm="ngForm" >
+    <div class="row">
+
+        <div class="col-4">
+            <div class="form-group">
+                <label>User ID</label>
+                <input   class="form-control" name="userId" ngModel required #userid="ngModel" pattern="[0-9]"  >
+                <div *ngIf="userid.errors && userid.touched">Required</div>
+            </div>
+
+            <div class="form-group">
+                <label>User Name</label>
+                <input class="form-control" name="userName" ngModel required #username="ngModel">
+                <div *ngIf="username.errors  && username.touched ">Required</div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" ngModel required #password="ngModel">
+                <div *ngIf="password.errors && password.touched">Required</div>
+            </div>
+            <button [disabled]="!loginForm.valid" class="btn btn-success" (click)="onSubmit(loginForm)">login</button>
+        </div>
+        
+
+        <div class="col-8">
+            <div class="table">
+                <th>User Id</th><th>User Name</th><th>Password</th><th>Action</th><th>Updated Action</th>
+                <tr *ngFor="let student of students">
+                    <td>{{student.userId}}</td>
+                    <td>{{student.userName}}</td>
+                    <td>{{student.password}}</td>
+                    <td><button class="btn btn-danger" (click)="deleteEntry(student.id)">Del</button></td>
+                    <td><button class="btn btn-secondary" (click)="editEntry(student)">edit</button></td>
+                </tr>
+            </div>
+
+        </div>
+
+    </div>
+</form>

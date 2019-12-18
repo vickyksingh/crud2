@@ -1,0 +1,35 @@
+<form [formGroup]="formName" (ngSubmit)="saveRecord()">
+    <div class="form-group" >
+        Name: <input class="form-control" formControlName="name">
+    </div>
+    <div class="form-group">
+        Email: <input class="form-control" formControlName="email">
+    </div>
+    <div>
+        <button class="btn btn-success" (click)="addForm()">[+]</button>
+    </div>
+    <div formArrayName="address">
+        <div *ngFor="let x of formName.get('address').controls; let i = index;">
+            <div [formGroupName]="i">
+                City: <input class="form-control" formControlName="city"><br>
+                State: <input class="form-control" formControlName="state"><br>
+                <button class="btn btn-warning" (click)='deleteForm(i)'>Delete</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary">Save</button>
+    </div>
+</form>
+<div >
+        <table border="1">
+            <th>Name</th><th>Email</th><th>Action</th>
+            <tr *ngFor="let emp of students">
+                <td>{{emp.name}}</td>
+                <td>{{emp.email}}</td>
+                <td><button class="btn btn-danger" (click)='deleteData(emp.id)'>Delete</button></td>
+                <td><button class="btn btn-successs" (click)='editData(emp)'>edit</button></td>
+
+            </tr>
+        </table>
+</div>
